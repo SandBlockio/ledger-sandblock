@@ -36,14 +36,14 @@ deps:
 	@echo "Install dependencies"
 	$(CURDIR)/src/install_deps.sh
 
-build_cosmos:
+build_sandblock:
 	docker run -i --rm \
 	-e BOLOS_SDK=$(DOCKER_BOLOS_SDK) -e BOLOS_ENV=/opt/bolos \
 	-u $(shell id -u) -v $(shell pwd):/project \
 	$(DOCKER_IMAGE) \
 	make -C /project/src/ledger-user
 
-build_cosmos2:
+build_sandblock2:
 	docker run -i --rm \
 	-e BOLOS_SDK=$(DOCKER_BOLOS_SDK2) -e BOLOS_ENV=/opt/bolos \
 	-u $(shell id -u) -v $(shell pwd):/project \
@@ -64,7 +64,7 @@ build_tendermint2:
 	$(DOCKER_IMAGE2) \
 	make -C /project/src/ledger-val
 
-clean_cosmos:
+clean_sandblock:
 	BOLOS_SDK=$(CURDIR)/deps/nanos-secure-sdk BOLOS_ENV=/opt/bolos \
 	make -C $(LEDGER_COSMOS_SRC) clean
 
@@ -72,12 +72,12 @@ clean_tendermint:
 	BOLOS_SDK=$(CURDIR)/deps/nanos-secure-sdk BOLOS_ENV=/opt/bolos \
 	make -C $(LEDGER_TENDERMINT_SRC) clean
 
-load_cosmos: build_cosmos
+load_sandblock: build_sandblock
 	SCP_PRIVKEY=$(SCP_PRIVKEY) \
 	BOLOS_SDK=$(CURDIR)/deps/nanos-secure-sdk BOLOS_ENV=/opt/bolos \
 	make -C $(LEDGER_COSMOS_SRC) load
 
-load_cosmos2: build_cosmos2
+load_sandblock2: build_sandblock2
 	SCP_PRIVKEY=$(SCP_PRIVKEY) \
 	BOLOS_SDK=$(CURDIR)/deps/nano2-sdk BOLOS_ENV=/opt/bolos \
 	make -C $(LEDGER_COSMOS_SRC) load
@@ -92,7 +92,7 @@ load_tendermint2: build_tendermint2
 	BOLOS_SDK=$(CURDIR)/deps/nano2-sdk BOLOS_ENV=/opt/bolos \
 	make -C $(LEDGER_TENDERMINT_SRC) load
 
-delete_cosmos:
+delete_sandblock:
 	SCP_PRIVKEY=$(SCP_PRIVKEY) \
 	BOLOS_SDK=$(CURDIR)/deps/nanos-secure-sdk BOLOS_ENV=/opt/bolos \
 	make -C $(LEDGER_COSMOS_SRC) delete
@@ -114,7 +114,7 @@ dev_ca:
 dev_ca_delete:
 	@python -m ledgerblue.resetCustomCA --targetId 0x31100004
 
-clean: clean_cosmos clean_tendermint
-build: build_cosmos build_tendermint
-load: build load_cosmos load_tendermint
-delete: delete_cosmos delete_tendermint
+clean: clean_sandblock clean_tendermint
+build: build_sandblock build_tendermint
+load: build load_sandblock load_tendermint
+delete: delete_sandblock delete_tendermint

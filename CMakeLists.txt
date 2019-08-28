@@ -14,7 +14,7 @@
 #*  limitations under the License.
 #********************************************************************************
 cmake_minimum_required(VERSION 3.0)
-project(ledger-cosmos VERSION 0.0.0)
+project(ledger-sandblock VERSION 0.0.0)
 enable_testing()
 
 set(CMAKE_CXX_STANDARD 11)
@@ -96,7 +96,7 @@ if (NOT DISABLE_DOCKER_BUILDS)
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
     add_custom_target(ledger_user_app
-            COMMAND make build_cosmos
+            COMMAND make build_sandblock
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             )
 
