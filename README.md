@@ -49,7 +49,7 @@ The following document describes how to build the apps: [Build instructions](doc
 
 ## Specifications
 
-### Cosmos App
+### Sandblock App
 
 -   [APDU Protocol](https://github.com/SandBlockio/ledger-sandblock-app/tree/master/docs/APDUSPEC.md)
 -   [Transaction format](https://github.com/SandBlockio/ledger-sandblock-app/tree/master/docs/TXSPEC.md)
